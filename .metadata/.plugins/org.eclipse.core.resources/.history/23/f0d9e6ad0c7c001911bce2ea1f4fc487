@@ -1,0 +1,28 @@
+package binPacking;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FirstFit {
+	
+	private List<Double> binsRemainingSpace;
+
+	public FirstFit() {
+		this.binsRemainingSpace = new ArrayList<Double> ();
+	}
+	
+	public void firstFit(Double currentItemSize,String noOfDecimals){
+		int noOfBins = this.binsRemainingSpace.size();
+		
+		if(noOfBins == 0 || this.binsRemainingSpace.get(noOfBins - 1) < currentItemSize)
+			this.binsRemainingSpace.add(Double.parseDouble(String.format("%." + noOfDecimals +"f", 1.0 - currentItemSize)));
+		
+		else{
+			double remainingSpace = this.binsRemainingSpace.get(noOfBins - 1); 
+			this.binsRemainingSpace.set(noOfBins - 1, Double.parseDouble(String.format("%." + noOfDecimals +"f", remainingSpace - currentItemSize)));
+		}
+	}
+	
+	
+
+}

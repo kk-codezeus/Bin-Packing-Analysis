@@ -1,0 +1,41 @@
+package binPacking;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class FirstFitDecreasing {
+	
+	public static void main(String[] args) throws FileNotFoundException{
+		int noOfLines = 10;
+		List<Double> averageWastageDiffInput = new ArrayList<Double>();
+		for(int noOfItemsPerLine = 10; noOfItemsPerLine <= 10;){
+			Scanner sc = new Scanner(new File("C:\\Users\\Karan\\Desktop\\Study\\Spring 2019\\CS260P-Algorithms\\Workspace\\Algo Project 2\\"+ Integer.toString(noOfItemsPerLine) + "_item_sizes.txt"));
+			double averageWastage = 0.0;
+			
+			for(int i = 0;i < noOfLines;i++) {
+				List<Double> items = new ArrayList<Double>();
+				
+				FirstFit ffd = new FirstFit();
+				int count = 0;
+				while(sc.hasNextDouble() && count < noOfItemsPerLine) {
+					double currentItemSize = sc.nextDouble();
+					items.add(currentItemSize);
+					count++;
+				}
+				
+				Collections.sort(items);
+				Collections.reverse(items);
+				for(int j = 0;j < 10;j++)
+					System.out.print(items.get(j) + " ");
+			}
+			noOfItemsPerLine *= 10;
+			
+		}
+	}
+
+}

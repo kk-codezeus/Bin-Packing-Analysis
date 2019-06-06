@@ -1,0 +1,76 @@
+package binPacking;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class BestFit {
+
+	private List<Double> binsRemainingSpace;
+	
+	public BestFit(){
+		this.binsRemainingSpace = new ArrayList<Double> ();
+	}
+	
+	public void bestFit(Double currentItemSize,String noOfDecimals){
+		int noOfBins = this.binsRemainingSpace.size();
+		int i = 0,min_index = -1;
+		double minRemainingSpace = 2.0;
+		for(;i<noOfBins;i++) {
+			double currentBinRemainingSpace = this.binsRemainingSpace.get(i);
+			if(currentBinRemainingSpace >= currentItemSize && minRemainingSpace > currentBinRemainingSpace) {
+				min_index = i;
+				minRemainingSpace = currentBinRemainingSpace;
+			}
+		}
+		if(min_index == -1)
+			this.binsRemainingSpace.add(Double.parseDouble(String.format("%." + noOfDecimals + "f", 1.0 - currentItemSize)));
+		
+		else
+			this.binsRemainingSpace.set(min_index, Double.parseDouble(String.format("%." + noOfDecimals + "f", minRemainingSpace - currentItemSize)));
+			
+	}
+	public void displayBins(){
+		for(int i = 0;i < this.binsRemainingSpace.size();i++){
+			System.out.print(this.binsRemainingSpace.get(i).doubleValue());
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+	
+	public double calculateWastage(){
+		double wastage = 0.0;
+		for(int i = 0;i < binsRemainingSpace.size();i++)
+			wastage += binsRemainingSpace.get(i);
+		return wastage;
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException{
+		BestFit bf = new BestFit();
+		Double[] itemSizes = new Double[] {0.2, 0.5, 0.4, 0.7, 0.1, 0.3, 0.8};
+		//Scanner sc = new Scanner(new File("C:\\Users\\Karan\\Desktop\\Study\\Spring 2019\\CS260P-Algorithms\\Workspace\\Algo Project 2\\10_item_sizes.txt"));
+//	    while (sc.hasNextDouble()) {
+//	        double currentItemSize = sc.nextDouble();
+//			
+//	        String size_s = Double.toString(currentItemSize);
+//			Integer decimalPlaces = size_s.length() - size_s.indexOf('.') - 1;
+//			String noOfDecimals = Integer.toString(decimalPlaces);
+//			
+//			System.out.print(currentItemSize + " ");
+//			ff.firstFit(currentItemSize,noOfDecimals);
+//		}
+		for(int i = 0;i < itemSizes.length;i++){
+			double currentItemSize = itemSizes[i];
+			
+			String size_s = Double.toString(currentItemSize);
+			Integer decimalPlaces = size_s.length() - size_s.indexOf('.') - 1;
+			String noOfDecimals = Integer.toString(decimalPlaces);
+			
+			System.out.print(currentItemSize + " ");
+			bf.bestFit(currentItemSize, noOfDecimals);
+		}
+		System.out.println();
+		bf.displayBins();
+		System.out.println("Wastage :" + bf.calculateWastage());
+	}
+}

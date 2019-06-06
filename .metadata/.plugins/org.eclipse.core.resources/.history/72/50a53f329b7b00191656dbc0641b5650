@@ -1,0 +1,53 @@
+package binPacking;
+
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class NextFit {
+	
+	private List<Double> binsRemainingSpace;					// Initially new bin created has 1.0 space
+	
+	public NextFit()
+	{
+		this.binsRemainingSpace = new ArrayList<Double> ();
+	}
+	
+	public void nextFit(Double size)
+	{
+		int noOfBins = this.binsRemainingSpace.size();
+		if(noOfBins == 0 || this.binsRemainingSpace.get(noOfBins - 1) < size)
+			this.binsRemainingSpace.add(Double.parseDouble(String.format("%.1f", 1.0 - size)));
+		else
+		{
+			double remainingSpace = this.binsRemainingSpace.get(noOfBins - 1); 
+			this.binsRemainingSpace.set(noOfBins - 1, Double.parseDouble(String.format("%.1f", remainingSpace - size)));
+		}
+	}
+	
+	public void displayBins()
+	{
+		for(int i = 0;i < this.binsRemainingSpace.size();i++)
+		{
+			System.out.print(this.binsRemainingSpace.get(i).doubleValue());
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+	
+	public static void main(String[] args)
+	{
+		NextFit nf = new NextFit();
+		
+		Double[] itemSizes = new Double[9];
+		for(int i = 0;i < itemSizes.length;i++)
+		{
+			double random = ThreadLocalRandom.current().nextDouble(0.0, 0.8);
+			itemSizes[i] = random;
+			nf.nextFit(random);
+		}
+		for(int i = 0;i < itemSizes.length;i++)
+			System.out.print(itemSizes[i] + " ");
+		System.out.println();
+		nf.displayBins();
+	}
+}

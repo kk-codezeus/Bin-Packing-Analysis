@@ -1,0 +1,17 @@
+package RandomNumGen;
+
+import java.io.*;
+import java.util.*;
+
+public class randNumGen {
+	
+	static int noOfItems = 10;
+	public static void main(String[] args) throws IOException
+	{
+		Random rn = new Random();
+		BufferedWriter bf = new BufferedWriter(new FileWriter("10 item sizes.txt"));
+		for(int i = 0;i < noOfItems;i++)
+			bf.append(Double.toString(rn.nextDouble() * 0.8));
+		bf.close();
+	}
+}

@@ -1,0 +1,12 @@
+package binPacking;
+
+import java.util.*;
+
+public class BestFit {
+
+	private List<Double> binsRemainingSpace;
+	public BestFit()
+	{
+		
+	}
+}

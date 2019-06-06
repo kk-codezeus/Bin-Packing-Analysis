@@ -1,0 +1,15 @@
+package binPacking;
+
+import java.util.List;
+
+public class FirstFit {
+	
+	private List<Double> binsRemainingSpace;
+
+	public FirstFit() {
+		
+	}
+	
+	
+
+}

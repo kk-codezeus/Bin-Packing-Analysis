@@ -1,0 +1,44 @@
+package binPacking;
+
+import java.math.BigDecimal;
+import java.util.*;
+
+public class NextFit {
+	List<BigDecimal> binSpaceRemaining;
+	
+	NextFit()
+	{
+		binSpaceRemaining = new ArrayList<BigDecimal> ();
+	}
+	
+	void nextFit(Double size)
+	{
+		BigDecimal size_bd = new BigDecimal(size);
+		int noOfBins = binSpaceRemaining.size();
+		if(noOfBins == 0 || binSpaceRemaining.get(noOfBins - 1).doubleValue() < size)
+			binSpaceRemaining.add(new BigDecimal(1.0).subtract(size_bd));
+		else
+			binSpaceRemaining.set(noOfBins - 1, binSpaceRemaining.get(noOfBins - 1).subtract(size_bd));
+	}
+	
+	void displayBins()
+	{
+		for(int i = 0;i < binSpaceRemaining.size();i++)
+		{
+			System.out.print(binSpaceRemaining.get(i).doubleValue());
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+	
+	public static void main(String[] args)
+	{
+		NextFit nf = new NextFit();
+		Double[] itemSizes = new Double[] {.5, .7, .5, .2, .4, .2, .5, .1, .6};
+		for(int i = 0;i < itemSizes.length;i++)
+		{
+			System.out.println(Float.parseFloat(String.format("%.1f", 1.0 - itemSizes[i])));
+		}
+		//nf.displayBins();
+	}
+}
